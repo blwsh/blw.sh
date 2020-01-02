@@ -302,6 +302,7 @@
     <script src="dist/js/app.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-32694748-2"></script>
     <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-32694748-2');</script>
+    <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/5e0e55ed7e39ea1242a2c882/default';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -326,7 +327,11 @@
         "hasOccupation": {
             "@type": "Occupation",
             "name": "Software Engineer",
-            "occupationLocation": "Leeds",
+            "occupationLocation": {
+                "@type": "Country",
+                "name": "GB",
+                "sameAs": "https://www.wikidata.org/wiki/Q145"
+            },
             "description": "Developer/Software Engineer from Leeds with PHP, Vue, Node, GoLang and DevOps experience.",
             "estimatedSalary": "0",
             "educationRequirements": "Computer Science BSc",

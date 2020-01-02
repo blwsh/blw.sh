@@ -5,4 +5,5 @@ AOS.init({
     duration: 800,
     easing: 'ease-out-sine'
 });
+
 new SmoothScroll('a[href*="#"]');

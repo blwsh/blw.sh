@@ -15,7 +15,12 @@
 
 html { @apply font-body; }
 body { @apply bg-gray-100; }
-section { @apply py-20; }
+section {
+    @apply py-20;
+    &.bg-white {
+        box-shadow: 0 0 50px -5px rgba(0,0,0,.25)
+    }
+}
 p:not(:last-of-type) { @apply mb-4; }
 
 

@@ -1,0 +1,9 @@
+.scroll-top {
+    @apply p-2 text-white rounded-lg font-bold fixed;
+    background-color: #0066FF;
+    right: 30px; bottom: 30px;
+
+    img {
+        @apply w-2;
+    }
+}

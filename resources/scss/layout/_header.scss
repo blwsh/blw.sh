@@ -1,0 +1,31 @@
+.header {
+    @apply text-white;
+    background: linear-gradient(172.01deg, #021048 17.83%, #1E38A3 91.9%);
+
+    .logo {
+        font-family: Sulphur Point, serif;
+        &_img {
+            @apply mr-1;
+            vertical-align: -.5rem;
+        }
+    }
+
+    &_intro {
+        @apply mx-auto text-center;
+        max-width: 360px;
+
+        &_body {
+            color: #C2CBF1;
+        }
+    }
+
+    .site-nav {
+        @apply font-bold font-display;
+
+        ul {
+            li {
+                @apply p-2 mx-2;
+            }
+        }
+    }
+}

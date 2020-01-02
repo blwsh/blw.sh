@@ -1,0 +1,9 @@
+.card {
+    @apply block bg-white p-4 m-4 rounded shadow;
+    &_body {
+        @apply text-sm text-gray-600 mt-4;
+    }
+    &_footer {
+        @apply mt-4;
+    }
+}

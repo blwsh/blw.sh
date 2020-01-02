@@ -1,0 +1,13 @@
+.skills-list {
+    ul {
+        @apply py-3;
+
+        li {
+            @apply my-1;
+            list-style: '* ';
+            &:first-of-type {
+                @apply font-bold;
+            }
+        }
+    }
+}

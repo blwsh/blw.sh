@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  web:
+    image: nginx
+    volumes:
+      - .:/usr/share/nginx/html:ro
+    environment:
+      - VIRTUAL_HOST=dev.local.blw.sh
+      - CERT_NAME=local.blw.sh
+networks:
+  default:
+    external:
+      name: proxy-network

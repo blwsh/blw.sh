@@ -22,14 +22,16 @@
 </head>
 <body>
     <header id="header" class="header overflow-hidden">
-        <div class="container py-10 mx-auto">
-            <div class="flex justify-between mb-10">
+        <div class="container p-10 mx-auto">
+            <div class="flex justify-between mb-10 relative">
                 <a href="/" class="logo">
-                    <img src="dist/img/logo.svg" alt="blw.sh" class="logo_img w-8 inline-block">
+                    <img src="dist/img/logo.svg" alt="blw.sh" class="logo_img w-8 hidden sm:inline-block">
                     <span class="text-2xl">BLW.SH</span>
                 </a>
 
                 <nav class="site-nav font-bold">
+                    <label for="site-nav_icon" class="site-nav_icon_label">Menu</label>
+                    <input type="checkbox" id="site-nav_icon" class="site-nav_icon"/>
                     <ul class="flex">
                         <li><a href="#header">Home</a></li>
                         <li><a href="#about">About</a></li>

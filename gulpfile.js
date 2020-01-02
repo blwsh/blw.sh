@@ -6,11 +6,11 @@ const purgecss = require('gulp-purgecss');
 let cleanCSS = require('gulp-clean-css');
 
 gulp.task('purgecss', () => {
-    return gulp.src('public/dist/css/*.css')
+    return gulp.src('dist/css/*.css')
         .pipe(purgecss({
             content: ['**/*.html', 'resources/scss/**/*.scss']
         }))
-        .pipe(gulp.dest('public/dist/css'))
+        .pipe(gulp.dest('dist/css'))
 });
 
 
@@ -23,7 +23,7 @@ gulp.task('js', function() {
             },
             devtool: 'source-map'
         }))
-        .pipe(gulp.dest('public/dist/js/'));
+        .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('style', function () {
@@ -36,7 +36,7 @@ gulp.task('style', function () {
             require('autoprefixer'),
         ]))
         .pipe(cleanCSS())
-        .pipe(gulp.dest('./public/dist/css/'));
+        .pipe(gulp.dest('./dist/css/'));
 });
 
 gulp.task('default', () => {

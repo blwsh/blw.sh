@@ -1,0 +1,28 @@
+.site-nav {
+    label, input {
+        display: none;
+    }
+
+    @media (max-width: 640px) {
+        label, input {
+            display: block;
+        }
+
+        .site-nav_icon {
+            display: none;
+
+            &_label {
+                @apply p-2 mx-2;
+            }
+
+            + ul  {
+                display: none;
+                z-index: 1;
+            }
+
+            &:checked + ul {
+                @apply absolute block text-center bg-gray-800 rounded right-0;
+            }
+        }
+    }
+}

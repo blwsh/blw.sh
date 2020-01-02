@@ -18,7 +18,7 @@ body { @apply bg-gray-100; }
 section {
     @apply py-20;
     &.bg-white {
-        box-shadow: 0 0 50px -10px rgba(0,0,0,.25)
+        box-shadow: 0 0 50px 0px rgba(133, 145, 188, 0.25);
     }
 }
 p:not(:last-of-type) { @apply mb-4; }

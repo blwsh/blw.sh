@@ -47,7 +47,17 @@
             </div>
 
             <div class="header_intro" data-aos="zoom-up">
-                <h1 class="block text-2xl font-bold">Ben Watson</h1>
+                <h1 class="block text-2xl font-bold">
+                    <img
+                        src="dist/img/waving-hand.png"
+                        alt="Waving hand"
+                        class="inline-block"
+                        data-aos="fade-zoom-in"
+                        data-aos-easing="ease-in-back"
+                        data-aos-offset="0"
+                    />
+                    Ben Watson
+                </h1>
                 <p class="header_intro_body m-2">Computer science student and developer with a passion for DevOps.</p>
                 <a href="#contact" class="btn my-4">Contact</a>
             </div>
@@ -139,15 +149,21 @@
 
         <section id="about" class="bg-white px-12 sm:px-24 md:px-48">
             <div class="flex flex-row flex-wrap">
-                <div class="flex-col w-full md:w-1/2 px-10 my-2" data-aos="zoom-up">
+                <div class="flex flex-col justify-center w-full md:w-1/2 p-10 hidden md:flex" data-aos="zoom-up">
+                    <img src="dist/img/me.png" alt="Ben Watson" class="w-56 mx-auto">
+                </div>
+                <div class="flex flex-col justify-center w-full md:w-1/2 px-10 my-2" data-aos="zoom-up">
                     <h2 class="text-lg font-bold mb-4">About Me</h2>
                     <p>My name is Ben Watson  and I am a young software developer from Leeds with a passion for open source and DevOps.</p>
                     <p>I am currently studying a degree in computer science and during my studies have worked at various companies in Leeds, freelanced and nominated to attend Trivago Tech Camp.</p>
                 </div>
-                <div class="flex-col w-full md:w-1/2 px-10 my-2" data-aos="zoom-up">
+                <div class="flex flex-col justify-center w-full md:w-1/2 md:text-right px-10 my-2" data-aos="zoom-up">
                     <h2 class="text-lg font-bold mb-4">Hobbies</h2>
                     <p>I like to spend some of my time working on projects I think are cool. You can see some of the stuff I’ve been building on my <a href="https://github.com/uniben">github</a>.</p>
                     <p>I also enjoy  playing card games, video games and try play pool every so often. I love Quentin Tarantino and Stanley Kubrick films.</p>
+                </div>
+                <div class="flex items-center justify-center md:text-right md:w-1/2 my-2 px-10" data-aos="zoom-up">
+                    <a href="#contact" class="btn inline-block">Get in touch</a>
                 </div>
             </div>
         </section>

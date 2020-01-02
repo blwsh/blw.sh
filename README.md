@@ -1,4 +1,4 @@
-# BLW.SH webste
+# [BLW.SH website](://blw.sh)
 
 Built using:
 
@@ -10,3 +10,6 @@ Fonts used:
 
 * [Sulphur Point](https://fonts.google.com/specimen/Sulphur+Point?selection.family=Sulphur+Point:400,700)
 
+## Todo 
+
+* Get purgecss working

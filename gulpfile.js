@@ -2,6 +2,17 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
 const webpack = require('webpack-stream');
+const purgecss = require('gulp-purgecss');
+let cleanCSS = require('gulp-clean-css');
+
+gulp.task('purgecss', () => {
+    return gulp.src('public/dist/css/*.css')
+        .pipe(purgecss({
+            content: ['**/*.html', 'resources/scss/**/*.scss']
+        }))
+        .pipe(gulp.dest('public/dist/css'))
+});
+
 
 gulp.task('js', function() {
     return gulp.src('resources/js/app.js')
@@ -24,6 +35,7 @@ gulp.task('style', function () {
             tailwindcss('./tailwindcss-config.js'),
             require('autoprefixer'),
         ]))
+        .pipe(cleanCSS())
         .pipe(gulp.dest('./public/dist/css/'));
 });
 

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Build a local dev environment that plays well with your prod and stage environments.">
+    <meta name="keywords" content="developer,leeds,devops,glcoud,aws,docker">
+    <meta name="author" content="Ben Watson">
+    <link rel="canonical" href="https://blw.sh/blog/create-fast-local-docker-web-dev-environment/"/>
+    <title>Creating a FAST-LOCAL docker web dev environment</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/dist/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/dist/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/dist/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/dist/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/dist/favicon/safari-pinned-tab.svg" color="#ffffff">
+    <link rel="shortcut icon" href="/dist/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#0066ff">
+    <meta name="msapplication-config" content="/dist/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#0066ff">
+    <meta property="og:title" content="Creating a FAST-LOCAL docker web dev environment">
+    <meta property="og:description" content="Build a local dev environment that plays well with your prod and stage environments..">
+    <meta property="og:image" content="https://blw.sh/dist/img/og/image.png">
+    <meta property="og:url" content="https://blw.sh/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:site_name" content="blw.sh">
+    <meta name="twitter:image:alt" content="Build a local dev environment that plays well with your prod and stage environments..">
+    <meta name="twitter:site" content="@_blwsh">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Sulphur+Point:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/css/app.css">
+    <!-- Hotjar Tracking Code for https://blw.sh -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:1629202,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</head>
+<body>
+    <header id="header" class="header overflow-hidden">
+        <div class="container p-10 mx-auto">
+            <div class="flex justify-between mb-10 relative">
+                <a href="/" class="logo">
+                    <img src="/dist/img/logo.svg" alt="blw.sh" class="logo_img w-8 hidden sm:inline-block">
+                    <span class="text-2xl">BLW.SH</span>
+                </a>
+
+                <nav class="site-nav font-bold">
+                    <label for="site-nav_icon" class="site-nav_icon_label">Menu</label>
+                    <input type="checkbox" id="site-nav_icon" class="site-nav_icon"/>
+                    <ul class="flex">
+                        <li><a href="/#header">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#skills">Skills</a></li>
+                        <li><a href="/#work">Work</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header_intro" data-aos="zoom-up">
+                <h1 class="block text-2xl font-bold">
+                    Creating a FAST-LOCAL docker web dev environment
+                </h1>
+                <p class="header_intro_body m-2">Build a local dev environment that plays well with your prod and stage environments.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="page page-post">
+        <section class="bg-white px-16">
+            <div class="max-w-2xl mx-auto">
+            <p class="text-gray-600 text-sm mb-10">
+                Posted by Ben Watson on 2nd January 2020
+            </p>
+            <p>
+                If you don’t know what docker is then where have you been? Docker is a tool
+                which allows you to provision containers based on docker images.
+            </p>
+            <p>
+                Why is this useful and in particular; why is this useful for not just
+                production and stage environments but for local dev environments? It’s
+                because it allows you to write a simple file that essentially extends other
+                docker images and create an easily replicable and fast spawning
+                containerised environment.
+            </p>
+            <h2>
+                So why should we use docker for a local dev environment?
+            </h2>
+            <p>
+                Because getting developers to all agree on a particular set up and getting
+                everybody on the same page is difficult. With the use of Docker, we can
+                eliminate the need to set up a new starts machine by shipping the
+                environment (along with the infrastructure) in a single file which is
+                unique to the particular project.
+            </p>
+            <p>
+                It encourages developers to take ops in to consideration. Rather than just
+                blaming it on different environments, a developer can perfect it on their
+                machine and easily distribute it to all project stakeholders.
+            </p>
+            <p>
+                Changes to infrastructure is a walk in the park thanks to Docker. Want to
+                switch PHP version? Require some dodgy code a client demands? No worries.
+                Simply update your project Dockerfile and be content in the knowledge that
+                your changes will only affect the container it creates and leave the rest
+                of the server alone.
+            </p>
+            <h2>
+                The goal.
+            </h2>
+            <p>
+                Each project should have a <span class="pre">docker-compose.yml</span> file which tells docker what
+                image to use and how to run it. It should automatically proxy secure https
+                requests from a local virtual hosts to running containers and finally, it
+                should be able to communicate with a central database(s) which s managed by
+                docker.
+            </p>
+            <p>
+                Other than the initial set up of the Docker Dev Environment, the only
+                command for all of this functionality is docker-compose up. No need to
+                bother looking through a readme for complex install, build, run and deploy
+                instructions.
+            </p>
+            <h2>
+                Okay! I’m sold. How does it work?
+            </h2>
+            <p>
+                For your local dev environment, we’re going to make use of a few awesome
+                libraries provided by the awesome source community!
+            </p>
+            <ul>
+                <li>
+                    <a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="nofollow">
+                        jwilder/nginx-proxy
+                    </a>
+                    – “Generates reverse proxy configs for nginx and reloads nginx when
+                    containers are started and stopped.
+                </li>
+                <li>
+                    <a href="FiloSottile/mkcert" target="_blank" rel="nofollow">FiloSottile/mkcert</a>
+                    – “mkcert is a simple tool for making locally-trusted development
+                    certificates. It requires no configuration.”
+                </li>
+            </ul>
+            <h2>
+                Creating the virtual host proxy.
+            </h2>
+            <p>
+                The virtual host proxy allows us to associate a virtual host with a
+                docker-compose project simply by attaching labels to the container. No need
+                to edit your hosts file, no restarting an entire VM and witng a few
+                minutes. It just works. This is all done thanks to <a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="nofollow">jwilder/nginx-proxy</a>.
+            </p>
+            <h2>
+                Installing dnsmasq.
+            </h2>
+            <p>
+                DNSMASQ is the only other bit of software that you actually have to install
+                on your host machine. Everything else runs inside of containers.
+            </p>
+            <p>
+                To install use the following brew commands:
+            </p>
+            <pre>brew install nss and brew install dnsmasq</pre>
+            <p>
+                Now configure your local proxy domain. We use a wildcard for this to make
+                SSL easier in later steps. Replace <pre class="inline-block">{$PROXY_DOMAIN}</pre> with your domain. E.g;
+                <span class="font-bold">local.&lt;your company&gt;.com</span>
+            </p>
+            <pre>sudo echo 'address=/{$PROXY_DOMAIN}/127.0.0.1' &gt;&gt; /usr/local/etc/dnsmasq.conf</pre>
+            <p>
+                Now create a DNS resolver by running the following command:
+            </p>
+            <pre>sudo mkdir -p /etc/resolver &amp;&amp; echo 'nameserver 127.0.0.1' | sudo
+tee /etc/resolver/${PROXY_DOMAIN}</pre>
+            <p>
+                Great! All that’s needed now is a system restart and that’s DNS side of
+                things done!
+            </p>
+            <h2>
+                Installing the proxy
+            </h2>
+            <p>
+                So now we just need to install the proxy but before we do this, we need to
+                create a docker network it can run on.
+            </p>
+            <pre>docker network create proxy-network</pre>
+            <p>
+                All we have to do to install and start the proxy is run docker-compose up
+                -d for the following file and we’re done! (Replace $PROXY_DOMAIN)
+            </p>
+            <script src="https://gist.github.com/UniBen/43074c50f6c61b95a2c7df9f8c8ade2c.js"></script>
+            <p>
+                Congratulations! You now have an automatic reverse proxy and a database any
+                container running on the docker proxy-network can access!
+            </p>
+            <p>
+                You can test the proxy is working by visiting <span class="font-bold">https://whoami.local.&lt;your
+                company&gt;.com</span>. You should see a message saying I’m &lt;container name&gt;
+            </p>
+            <h2>
+                Let’s get our project running!
+            </h2>
+            <p>
+                So, let’s get a simple php application running. We’ll use the example
+                docker image from the official Docker PHP Image page.
+            </p>
+            <p>
+                Create your Dockerfile:
+            </p>
+            <script src="https://gist.github.com/UniBen/a53c29d907e38d84f5189334f45f51ed.js"></script>
+            <p>
+                And now create a docker-compose file for the project.
+            </p>
+            <script src="https://gist.github.com/UniBen/d28fdf4b07b27784a42a26b8dfc03bb3.js"></script>
+            <p>
+                And then run <span class="pre">docker-compose up -d</span>
+            </p>
+            <p>
+                That’s it! We’re done. You can now visit your php application in the
+                browser by going to <span class="font-bold">example.local.&lt;your company&gt;.com</span>
+            </p>
+            <p>
+                Next up setting up SSL
+            </p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="py-10 px-16 md:px-32 lg:px-72 text-center">
+        <div class="mb-4">
+            <span class="mx-1 md:mx-5">email: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#110;&#64;&#98;&#108;&#119;&#46;&#115;&#104;" class="font-bold">&#98;&#101;&#110;&#64;&#98;&#108;&#119;&#46;&#115;&#104;</a></span>
+            <span class="mx-1 md:mx-5">twitter: <a href="https://twitter.com/_blwsh" class="font-bold" target="_blank">@_blwsh</a></span>
+            <span class="mx-1 md:mx-5">phone: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#48;&#55;&#52;&#52;&#32;&#54;&#50;&#50;&#32;&#52;&#55;&#55;&#50;" class="font-bold">&#48;&#55;&#52;&#52;&#32;&#54;&#50;&#50;&#32;&#52;&#55;&#55;&#50;</a></span>
+        </div>
+
+        <div class="text-sm">&copy; 2020 BLW.SH All Rights Reserved.</div>
+    </footer>
+
+    <a href="#header" class="scroll-top"><img src="/dist/img/up.png" alt="Scroll up"></a>
+
+    <script src="/dist/js/app.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-32694748-2"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-32694748-2');</script>
+    <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/5e0e55ed7e39ea1242a2c882/default';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "LocalBusiness",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Leeds",
+            "addressRegion": "WY"
+        },
+        "description": "Developer/Software Engineer from Leeds with PHP, Vue, Node, GoLang and DevOps experience.",
+        "name": "blw.sh",
+        "priceRange": "$$",
+        "image": "https://blw.sh/dist/img/logo.svg",
+        "telephone": "07446224772"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Ben Watson",
+        "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Software Engineer",
+            "occupationLocation": {
+                "@type": "Country",
+                "name": "GB",
+                "sameAs": "https://www.wikidata.org/wiki/Q145"
+            },
+            "description": "Developer/Software Engineer from Leeds with PHP, Vue, Node, GoLang and DevOps experience.",
+            "estimatedSalary": "0",
+            "educationRequirements": "Computer Science BSc",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://blw.sh/"
+            }
+        }
+    }
+    </script>
+</body>
+</html>

@@ -78,160 +78,165 @@
     <main class="page page-post">
         <section class="bg-white px-16">
             <div class="max-w-2xl mx-auto">
-            <p class="text-gray-600 text-sm mb-10">
-                Posted by Ben Watson on 2nd January 2020
-            </p>
-            <p>
-                If you don’t know what docker is then where have you been? Docker is a tool
-                which allows you to provision containers based on docker images.
-            </p>
-            <p>
-                Why is this useful and in particular; why is this useful for not just
-                production and stage environments but for local dev environments? It’s
-                because it allows you to write a simple file that essentially extends other
-                docker images and create an easily replicable and fast spawning
-                containerised environment.
-            </p>
-            <h2>
-                So why should we use docker for a local dev environment?
-            </h2>
-            <p>
-                Because getting developers to all agree on a particular set up and getting
-                everybody on the same page is difficult. With the use of Docker, we can
-                eliminate the need to set up a new starts machine by shipping the
-                environment (along with the infrastructure) in a single file which is
-                unique to the particular project.
-            </p>
-            <p>
-                It encourages developers to take ops in to consideration. Rather than just
-                blaming it on different environments, a developer can perfect it on their
-                machine and easily distribute it to all project stakeholders.
-            </p>
-            <p>
-                Changes to infrastructure is a walk in the park thanks to Docker. Want to
-                switch PHP version? Require some dodgy code a client demands? No worries.
-                Simply update your project Dockerfile and be content in the knowledge that
-                your changes will only affect the container it creates and leave the rest
-                of the server alone.
-            </p>
-            <h2>
-                The goal.
-            </h2>
-            <p>
-                Each project should have a <span class="pre">docker-compose.yml</span> file which tells docker what
-                image to use and how to run it. It should automatically proxy secure https
-                requests from a local virtual hosts to running containers and finally, it
-                should be able to communicate with a central database(s) which s managed by
-                docker.
-            </p>
-            <p>
-                Other than the initial set up of the Docker Dev Environment, the only
-                command for all of this functionality is docker-compose up. No need to
-                bother looking through a readme for complex install, build, run and deploy
-                instructions.
-            </p>
-            <h2>
-                Okay! I’m sold. How does it work?
-            </h2>
-            <p>
-                For your local dev environment, we’re going to make use of a few awesome
-                libraries provided by the awesome source community!
-            </p>
-            <ul>
-                <li>
-                    <a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="nofollow">
-                        jwilder/nginx-proxy
-                    </a>
-                    – “Generates reverse proxy configs for nginx and reloads nginx when
-                    containers are started and stopped.
-                </li>
-                <li>
-                    <a href="FiloSottile/mkcert" target="_blank" rel="nofollow">FiloSottile/mkcert</a>
-                    – “mkcert is a simple tool for making locally-trusted development
-                    certificates. It requires no configuration.”
-                </li>
-            </ul>
-            <h2>
-                Creating the virtual host proxy.
-            </h2>
-            <p>
-                The virtual host proxy allows us to associate a virtual host with a
-                docker-compose project simply by attaching labels to the container. No need
-                to edit your hosts file, no restarting an entire VM and witng a few
-                minutes. It just works. This is all done thanks to <a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="nofollow">jwilder/nginx-proxy</a>.
-            </p>
-            <h2>
-                Installing dnsmasq.
-            </h2>
-            <p>
-                DNSMASQ is the only other bit of software that you actually have to install
-                on your host machine. Everything else runs inside of containers.
-            </p>
-            <p>
-                To install use the following brew commands:
-            </p>
-            <pre>brew install nss and brew install dnsmasq</pre>
-            <p>
-                Now configure your local proxy domain. We use a wildcard for this to make
-                SSL easier in later steps. Replace <pre class="inline-block">{$PROXY_DOMAIN}</pre> with your domain. E.g;
-                <span class="font-bold">local.&lt;your company&gt;.com</span>
-            </p>
-            <pre>sudo echo 'address=/{$PROXY_DOMAIN}/127.0.0.1' &gt;&gt; /usr/local/etc/dnsmasq.conf</pre>
-            <p>
-                Now create a DNS resolver by running the following command:
-            </p>
-            <pre>sudo mkdir -p /etc/resolver &amp;&amp; echo 'nameserver 127.0.0.1' | sudo
-tee /etc/resolver/${PROXY_DOMAIN}</pre>
-            <p>
-                Great! All that’s needed now is a system restart and that’s DNS side of
-                things done!
-            </p>
-            <h2>
-                Installing the proxy
-            </h2>
-            <p>
-                So now we just need to install the proxy but before we do this, we need to
-                create a docker network it can run on.
-            </p>
-            <pre>docker network create proxy-network</pre>
-            <p>
-                All we have to do to install and start the proxy is run docker-compose up
-                -d for the following file and we’re done! (Replace $PROXY_DOMAIN)
-            </p>
-            <script src="https://gist.github.com/UniBen/43074c50f6c61b95a2c7df9f8c8ade2c.js"></script>
-            <p>
-                Congratulations! You now have an automatic reverse proxy and a database any
-                container running on the docker proxy-network can access!
-            </p>
-            <p>
-                You can test the proxy is working by visiting <span class="font-bold">https://whoami.local.&lt;your
-                company&gt;.com</span>. You should see a message saying I’m &lt;container name&gt;
-            </p>
-            <h2>
-                Let’s get our project running!
-            </h2>
-            <p>
-                So, let’s get a simple php application running. We’ll use the example
-                docker image from the official Docker PHP Image page.
-            </p>
-            <p>
-                Create your Dockerfile:
-            </p>
-            <script src="https://gist.github.com/UniBen/a53c29d907e38d84f5189334f45f51ed.js"></script>
-            <p>
-                And now create a docker-compose file for the project.
-            </p>
-            <script src="https://gist.github.com/UniBen/d28fdf4b07b27784a42a26b8dfc03bb3.js"></script>
-            <p>
-                And then run <span class="pre">docker-compose up -d</span>
-            </p>
-            <p>
-                That’s it! We’re done. You can now visit your php application in the
-                browser by going to <span class="font-bold">example.local.&lt;your company&gt;.com</span>
-            </p>
-            <p>
-                Next up setting up SSL
-            </p>
+                <p class="text-gray-600 text-sm mb-10">
+                    Posted by Ben Watson on 2nd January 2020
+                </p>
+                <p>
+                    If you don’t know what docker is then where have you been? Docker is a tool
+                    which allows you to provision containers based on docker images.
+                </p>
+                <p>
+                    Why is this useful and in particular; why is this useful for not just
+                    production and stage environments but for local dev environments? It’s
+                    because it allows you to write a simple file that essentially extends other
+                    docker images and create an easily replicable and fast spawning
+                    containerised environment.
+                </p>
+                <h2>
+                    So why should we use docker for a local dev environment?
+                </h2>
+                <p>
+                    Because getting developers to all agree on a particular set up and getting
+                    everybody on the same page is difficult. With the use of Docker, we can
+                    eliminate the need to set up a new starts machine by shipping the
+                    environment (along with the infrastructure) in a single file which is
+                    unique to the particular project.
+                </p>
+                <p>
+                    It encourages developers to take ops in to consideration. Rather than just
+                    blaming it on different environments, a developer can perfect it on their
+                    machine and easily distribute it to all project stakeholders.
+                </p>
+                <p>
+                    Changes to infrastructure is a walk in the park thanks to Docker. Want to
+                    switch PHP version? Require some dodgy code a client demands? No worries.
+                    Simply update your project Dockerfile and be content in the knowledge that
+                    your changes will only affect the container it creates and leave the rest
+                    of the server alone.
+                </p>
+                <h2>
+                    The goal.
+                </h2>
+                <p>
+                    Each project should have a <span class="pre">docker-compose.yml</span> file which tells docker what
+                    image to use and how to run it. It should automatically proxy secure https
+                    requests from a local virtual hosts to running containers and finally, it
+                    should be able to communicate with a central database(s) which s managed by
+                    docker.
+                </p>
+                <p>
+                    Other than the initial set up of the Docker Dev Environment, the only
+                    command for all of this functionality is docker-compose up. No need to
+                    bother looking through a readme for complex install, build, run and deploy
+                    instructions.
+                </p>
+                <h2>
+                    Okay! I’m sold. How does it work?
+                </h2>
+                <p>
+                    For your local dev environment, we’re going to make use of a few awesome
+                    libraries provided by the awesome source community!
+                </p>
+                <ul>
+                    <li>
+                        <a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="nofollow">
+                            jwilder/nginx-proxy
+                        </a>
+                        – “Generates reverse proxy configs for nginx and reloads nginx when
+                        containers are started and stopped.
+                    </li>
+                    <li>
+                        <a href="FiloSottile/mkcert" target="_blank" rel="nofollow">FiloSottile/mkcert</a>
+                        – “mkcert is a simple tool for making locally-trusted development
+                        certificates. It requires no configuration.”
+                    </li>
+                </ul>
+                <h2>
+                    Creating the virtual host proxy.
+                </h2>
+                <p>
+                    The virtual host proxy allows us to associate a virtual host with a
+                    docker-compose project simply by attaching labels to the container. No need
+                    to edit your hosts file, no restarting an entire VM and witng a few
+                    minutes. It just works. This is all done thanks to <a href="https://github.com/jwilder/nginx-proxy" target="_blank" rel="nofollow">jwilder/nginx-proxy</a>.
+                </p>
+                <h2>
+                    Installing dnsmasq.
+                </h2>
+                <p>
+                    DNSMASQ is the only other bit of software that you actually have to install
+                    on your host machine. Everything else runs inside of containers.
+                </p>
+                <p>
+                    To install use the following brew commands:
+                </p>
+                <pre>brew install nss and brew install dnsmasq</pre>
+                <p>
+                    Now configure your local proxy domain. We use a wildcard for this to make
+                    SSL easier in later steps. Replace <pre class="inline-block">{$PROXY_DOMAIN}</pre> with your domain. E.g;
+                    <span class="font-bold">local.&lt;your company&gt;.com</span>
+                </p>
+                <pre>sudo echo 'address=/{$PROXY_DOMAIN}/127.0.0.1' &gt;&gt; /usr/local/etc/dnsmasq.conf</pre>
+                <p>
+                    Now create a DNS resolver by running the following command:
+                </p>
+                <pre>sudo mkdir -p /etc/resolver &amp;&amp; echo 'nameserver 127.0.0.1' | sudo
+    tee /etc/resolver/${PROXY_DOMAIN}</pre>
+                <p>
+                    Great! All that’s needed now is a system restart and that’s DNS side of
+                    things done!
+                </p>
+                <h2>
+                    Installing the proxy
+                </h2>
+                <p>
+                    So now we just need to install the proxy but before we do this, we need to
+                    create a docker network it can run on.
+                </p>
+                <pre>docker network create proxy-network</pre>
+                <p>
+                    All we have to do to install and start the proxy is run docker-compose up
+                    -d for the following file and we’re done! (Replace $PROXY_DOMAIN)
+                </p>
+                <script src="https://gist.github.com/UniBen/43074c50f6c61b95a2c7df9f8c8ade2c.js"></script>
+                <p>
+                    Congratulations! You now have an automatic reverse proxy and a database any
+                    container running on the docker proxy-network can access!
+                </p>
+                <p>
+                    You can test the proxy is working by visiting <span class="font-bold">https://whoami.local.&lt;your
+                    company&gt;.com</span>. You should see a message saying I’m &lt;container name&gt;
+                </p>
+                <h2>
+                    Let’s get our project running!
+                </h2>
+                <p>
+                    So, let’s get a simple php application running. We’ll use the example
+                    docker image from the official Docker PHP Image page.
+                </p>
+                <p>
+                    Create your Dockerfile:
+                </p>
+                <script src="https://gist.github.com/UniBen/a53c29d907e38d84f5189334f45f51ed.js"></script>
+                <p>
+                    And now create a docker-compose file for the project.
+                </p>
+                <script src="https://gist.github.com/UniBen/d28fdf4b07b27784a42a26b8dfc03bb3.js"></script>
+                <p>
+                    And then run <span class="pre">docker-compose up -d</span>
+                </p>
+                <p>
+                    That’s it! We’re done. You can now visit your php application in the
+                    browser by going to <span class="font-bold">example.local.&lt;your company&gt;.com</span>
+                </p>
+                <p>
+                    Next up setting up SSL
+                </p>
+            </div>
+        </section>
+        <section>
+            <div class="max-w-2xl mx-auto">
+                <div id="disqus_thread"></div>
             </div>
         </section>
     </main>
@@ -252,6 +257,7 @@ tee /etc/resolver/${PROXY_DOMAIN}</pre>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-32694748-2"></script>
     <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-32694748-2');</script>
     <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/5e0e55ed7e39ea1242a2c882/default';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>
+    <script>(function() {var d = document, s = d.createElement('script');s.src = 'https://blw-sh.disqus.com/embed.js';s.setAttribute('data-timestamp', +new Date());(d.head || d.body).appendChild(s);})();</script>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",

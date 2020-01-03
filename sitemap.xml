@@ -3,4 +3,12 @@
         <loc>https://blw.sh/</loc>
         <lastmod>2020-01-02T05:43:04+00:00</lastmod>
     </url>
+    <url>
+        <loc>https://blw.sh/blog/</loc>
+        <lastmod>2020-01-02T05:43:04+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://blw.sh/blog/create-fast-local-docker-web-dev-environment/</loc>
+        <lastmod>2020-01-02T05:43:04+00:00</lastmod>
+    </url>
 </urlset>

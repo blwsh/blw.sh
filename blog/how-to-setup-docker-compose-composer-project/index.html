@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Build a local dev environment that plays well with your prod and stage environments.">
+    <meta name="keywords" content="developer,leeds,devops,glcoud,aws,docker">
+    <meta name="author" content="Ben Watson">
+    <link rel="canonical" href="https://blw.sh/blog/how-to-setup-docker-compose-composer-project/"/>
+    <title>How to setup composer project using docker-compose</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/dist/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/dist/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/dist/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/dist/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/dist/favicon/safari-pinned-tab.svg" color="#ffffff">
+    <link rel="shortcut icon" href="/dist/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#0066ff">
+    <meta name="msapplication-config" content="/dist/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#0066ff">
+    <meta property="og:title" content="How to setup composer project using docker-compose">
+    <meta property="og:description" content="Build a local dev environment that plays well with your prod and stage environments..">
+    <meta property="og:image" content="https://blw.sh/dist/img/og/image.png">
+    <meta property="og:url" content="https://blw.sh/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:site_name" content="blw.sh">
+    <meta name="twitter:image:alt" content="Build a local dev environment that plays well with your prod and stage environments..">
+    <meta name="twitter:site" content="@_blwsh">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Sulphur+Point:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/css/app.css">
+    <!-- Hotjar Tracking Code for https://blw.sh -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:1629202,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</head>
+<body>
+    <header id="header" class="header overflow-hidden">
+        <div class="container p-10 mx-auto">
+            <div class="flex justify-between mb-10 relative">
+                <a href="/" class="logo">
+                    <img src="/dist/img/logo.svg" alt="blw.sh" class="logo_img w-8 hidden sm:inline-block">
+                    <span class="text-2xl">BLW.SH</span>
+                </a>
+
+                <nav class="site-nav font-bold">
+                    <label for="site-nav_icon" class="site-nav_icon_label">Menu</label>
+                    <input type="checkbox" id="site-nav_icon" class="site-nav_icon"/>
+                    <ul class="flex">
+                        <li><a href="/#header">Home</a></li>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#skills">Skills</a></li>
+                        <li><a href="/#work">Work</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header_intro" data-aos="zoom-up">
+                <h1 class="block text-2xl font-bold">
+                    How to setup composer project using docker-compose
+                </h1>
+                <p class="header_intro_body m-2">Setting up a docker-compose project the right way.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="page page-post">
+        <section class="bg-white px-16">
+            <div class="max-w-2xl mx-auto">
+                <p class="text-gray-600 text-sm mb-10">
+                    Posted by Ben Watson on 7th January 2020
+                </p>
+                <p>This guide will show you how to create a composer project using docker-compose as the development environment. Their are a few main objectives.</p>
+                <ul>
+                    <li>Should be easy to switch PHP versions</li>
+                    <li>Should come with composer baked in</li>
+                    <li>Should allow easy setup for contributors</li>
+                    <li>Should help encourage identical development environments</li>
+                </ul>
+                <h2>Complete project structure</h2>
+<pre>├ app/
+│  ├ composer.json <span class="text-gray-500">- This composer.json file is used to symlink and require our package as a dependency so we can play with it in index.php</span>
+│  ├ composer-lock.json
+│  ├ index.php
+│  └ vendor/
+├ etc/
+│  └ docker/
+│    └ app.dockerfile
+├ src/
+│  └ SayHello.php <span class="text-gray-500">- (PHP namespace: UniBen\ExampleComposerDockerCompose.)</span>
+├ .gitignore
+├ composer.json <span class="text-gray-500">- The composer.json for the composer package.</span>
+├ composer-lock.json
+├ docker-compose.yml <span class="text-gray-500">- docker-compose up -d or docker-compose run app bash</span>
+├ docker-compose.install.yml <span class="text-gray-500">- Used by Makefile to install composer dependencies and copy vendor to host when done</span>
+└ Makefile</pre>
+                <p>We'll start by creating an example class for our package. It will have the namespace UniBen\ExampleComposerDockerCompose and should be autoloaded in to our example app code found in the app directory.</p>
+                <p><script src="https://gist.github.com/UniBen/bf66c9b13566b296b666ec137b8b1ffb.js"></script></p>
+                <p>Now we can add autoloading for the package in our <span class="pre">composer.json</span></p>
+                <p><script src="https://gist.github.com/UniBen/c7ae04d40c33620187c19a6b4e22737f.js"></script></p>
+                <p>Next up we'll create our <span class="pre">docker-compose.yml</span> file</p>
+                <p><script src="https://gist.github.com/UniBen/f73be3108d3cc39ce36623aad882b3e6.js"></script></p>
+                <p>Then create the <span class="pre">dockerfile</span> called <span class="pre">app.dockerfile</span> in the directory <span class="pre">etc/docker</span> for the app</p>
+                <p><script src="https://gist.github.com/UniBen/7d23600c387e2a77dae545e641c50b0a.js"></script></p>
+                <p>For testing our cli we&rsquo;re going to make a directory called app. This could just as easily be PHPUnit tests but just to keep things simple, we&rsquo;ll make the directory app and have an <span class="pre">index.php</span> file which calls our new SayHello class.</p>
+                <p><span class="pre">./app/index.php</span></p>
+                <p><script src="https://gist.github.com/UniBen/2755ae0de749c94f776332f621aebafd.js"></script></p>
+                <p>Let&rsquo;s make a <span class="pre">composer.json</span> file in our app folder which requires our package.</p>
+                <pre>cd app &amp;&amp; composer init</pre>
+                <p>Now in our <span class="pre">./app/composer.json</span> add a symlink for our package which is in our <span class="pre">./src</span> directory. Notice we symlink to <span class="pre">/package</span> even though our package code is in <span class="pre">./src</span>. Not to worry, ths is where we&rsquo;re gong to mount our package in the container file system using docker-compose.</p>
+                <p><script src="https://gist.github.com/UniBen/42acabb9473dbad8e559aabcf888f1b3.js"></script></p>
+                <p>Next, we add our package to the require section of the package and specify the minimum stability as <span class="pre">@dev</span></p>
+                <p><script src="https://gist.github.com/UniBen/388e023465e489820bcb4e5ceff01cf4.js"></script></p>
+                <p>Now we can mount our package and application code in to our docker-compose container. We can do this by adding the following volumes to our app service in <span class="pre">docker-compose.yml</span></p>
+                <p><script src="https://gist.github.com/UniBen/8834d8c1c9aec8bb348071d18e8d068d.js"></script></p>
+                <p>Let&rsquo;s take a look at our container file system. You should see your application code <strong>in the container directory</strong> <span class="pre">/src</span> and the package code <strong>in the container directory</strong> <span class="pre">/package</span></p>
+                <p>Looks good. Now we can move on to installing dependencies. We&rsquo;ll add a dependency to our package just to test composer is working.</p>
+                <pre>cd /package &amp;&amp; composer require guzzlehttp/guzzle:~6.0</pre>
+                <p>You get an error similar to this one:</p>
+                <p>This is because the base docker image we&rsquo;re using doesn&rsquo;t install git and related extensions. We can fix this by updating our dockerfile.</p>
+                <p>Near the top of <span class="pre">etc/docker/app.dockerfile</span> (before the composer install) add</p>
+                <pre><em>RUN </em>apt-get update <em>&amp;&amp; </em>apt-get install <em>-</em>y git zip unzip <em>&amp;&amp; </em>rm <em>-</em>rf <em>/</em>var<em>/</em>lib<em>/</em>apt<em>/</em>lists<em>/*</em></pre>
+                <p>This command will update the apt-get repo and install, git, zip and unzip then tidy up the image a bit so it isn&rsquo;t so large.</p>
+                <p>Now we need to exit our container bash session <span class="pre">(Ctrl/Cmd + D)</span> and rebuild our docker image.</p>
+                <pre>docker-compose build app</pre>
+                <p>Now we&rsquo;ve updated our dockerfile we can run <span class="pre">composer require</span> again for our package and see it successful installs our specified package.</p>
+                <pre>cd /package &amp;&amp; composer require guzzlehttp/guzzle:~6.0</pre>
+                <p><script src="https://gist.github.com/UniBen/430da8db7f58e45d16be99caf7a55aba.js"></script></p>
+                <p>Great! We know composer is working so we can move on to requiring our package in our <span class="pre">./app</span> code.</p>
+                <pre>docker-compose run --rm app bash
+cd /src &amp;&amp; composer update uniben/example-composer-docker-compose-project --prefer-source</pre>
+                <p>Our package along with its dependencies should now be installed. Let&rsquo;s update our <span class="pre">./app/index.php</span> and test our class.</p>
+                <p><script src="https://gist.github.com/UniBen/84972329e7a6721a4d4344c2c94853ba.js"></script></p>
+                <p>If everything is working running <span class="pre">php index.php</span> should output <i>"Hello, Ben!"</i> to the console.</p>
+                <p>Now let&rsquo;s streamline things a little bit by moving the composer install to the dockerfile instead of sshing in to the container and running the command our self.</p>
+                <p>Let&rsquo;s copy our app code in to the <span class="pre">/src</span> directory of the container, mount the src package (the entire project) in to the <span class="pre">/package</span> directory, set our workdir to the directory we mount our app code in and then run the composer install command.</p>
+                <p><script src="https://gist.github.com/UniBen/4e72463ec9f67868a65ce9a00d96a4df.js"></script></p>
+                <p>Now we need to rebuild the image using <span class="pre">docker-compose build</span>.</p>
+                <p>We&rsquo;ll also add a default command to our dockerfile which runs our script if no command is specified using docker-compose run</p>
+                <p><script src="https://gist.github.com/UniBen/cfdd5b5290ec7bcbabe19fca72125770.js"></script></p>
+                <p>Before we run our container, delete the vendor and composer lock from our app directory. This is because we want to test how a new install would work. Because our composer install is done in the composer build it should still work right?</p>
+                <p>Uh oh! Why does this happen? This is because we&rsquo;ve overwritten the container <span class="pre">/src</span> directory with our <span class="pre">./app</span> directory. So how do we get around this issue without having to ssh in to the container and run composer install manually.</p>
+                <p>Well this is quite easy and we have two options. The first option is to simply ignore the vendor folder in our docker-compose file.</p>
+                <p><script src="https://gist.github.com/UniBen/82c81f9a19a96c45ee5e6b770bccbf3d.js"></script></p>
+                <p>There are a few advantages and disadvantages to this method. The man advantage is that it&rsquo;s really easy to do. Another advantage is that performance should be a little better because accessing many mounted files can be slower.</p>
+                <p>The big disadvantage to this method is that your IDE may complain about classes being missing if you haven&rsquo;t set up a remote PHP interpreter.</p>
+                <p>How to get around missing classes issue without setting up a remote interpreter.</p>
+                <p>All we need to do is copy the vendor folder from the built image to the host.</p>
+                <p>First off, add this <span class="pre">Makefile</span> to your project:</p>
+                <p><script src="https://gist.github.com/UniBen/724282088ed2891830c5a374b99c4b75.js"></script></p>
+                <p>Duplicate your <span class="pre">docker-compose.yml</span> file and call it <span class="pre">docker-compose.install.yml</span> then remove the <span class="pre">volumes</span> array.</p>
+                <p><span class="pre">./docker-compose.install.yml</span></p>
+                <p><script src="https://gist.github.com/UniBen/46bc76ccc3637c8d3d86a7323f10d6c8.js"></script></p>
+                <p>Finally, run make install and you should see the vendor folder from the built docker image appear in your project!</p>
+                <p>Note, you can still run composer commands in the container but only the changes to composer.json and composer-lock.json will be reflected to the host. The vendor folder will remain unchanged on the host unless you remove the vendor folder exclude from docker-compose volume mounts or re-run make install.</p>
+                <p>If you need to modify files in the vendor directory, you should remove the directory exclude in your docker-compose.yml however, you should only really modify these files if you need to debug.</p>
+                <p>You can see the example project <a href="https://github.com/UniBen/example-composer-docker-compose-project/blob/master/src/SayHello.php">here</a>.</p>
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style my-5 mx-auto inline-block">
+                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                    <a class="a2a_button_facebook"></a>
+                    <a class="a2a_button_twitter"></a>
+                    <a class="a2a_button_email"></a>
+                    <a class="a2a_button_reddit"></a>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="max-w-2xl mx-auto">
+                <div id="disqus_thread"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="py-10 px-16 md:px-32 lg:px-72 text-center">
+        <div class="mb-4">
+            <span class="mx-1 md:mx-5">email: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#110;&#64;&#98;&#108;&#119;&#46;&#115;&#104;" class="font-bold">&#98;&#101;&#110;&#64;&#98;&#108;&#119;&#46;&#115;&#104;</a></span>
+            <span class="mx-1 md:mx-5">twitter: <a href="https://twitter.com/_blwsh" class="font-bold" target="_blank">@_blwsh</a></span>
+            <span class="mx-1 md:mx-5">phone: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#48;&#55;&#52;&#52;&#32;&#54;&#50;&#50;&#32;&#52;&#55;&#55;&#50;" class="font-bold">&#48;&#55;&#52;&#52;&#32;&#54;&#50;&#50;&#32;&#52;&#55;&#55;&#50;</a></span>
+        </div>
+
+        <div class="text-sm">&copy; 2020 BLW.SH All Rights Reserved.</div>
+    </footer>
+
+    <a href="#header" class="scroll-top"><img src="/dist/img/up.png" alt="Scroll up"></a>
+
+    <script src="/dist/js/app.js"></script>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-32694748-2"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-32694748-2');</script>
+    <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/5e0e55ed7e39ea1242a2c882/default';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>
+    <script>(function() {var d = document, s = d.createElement('script');s.src = 'https://blw-sh.disqus.com/embed.js';s.setAttribute('data-timestamp', +new Date());(d.head || d.body).appendChild(s);})();</script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "LocalBusiness",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Leeds",
+            "addressRegion": "WY"
+        },
+        "description": "Developer/Software Engineer from Leeds with PHP, Vue, Node, GoLang and DevOps experience.",
+        "name": "blw.sh",
+        "priceRange": "$$",
+        "image": "https://blw.sh/dist/img/logo.svg",
+        "telephone": "07446224772"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Ben Watson",
+        "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Software Engineer",
+            "occupationLocation": {
+                "@type": "Country",
+                "name": "GB",
+                "sameAs": "https://www.wikidata.org/wiki/Q145"
+            },
+            "description": "Developer/Software Engineer from Leeds with PHP, Vue, Node, GoLang and DevOps experience.",
+            "estimatedSalary": "0",
+            "educationRequirements": "Computer Science BSc",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://blw.sh/"
+            }
+        }
+    }
+    </script>
+</body>
+</html>

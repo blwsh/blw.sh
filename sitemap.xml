@@ -11,4 +11,8 @@
         <loc>https://blw.sh/blog/create-fast-local-docker-web-dev-environment/</loc>
         <lastmod>2020-01-02T05:43:04+00:00</lastmod>
     </url>
+    <url>
+        <loc>https://blw.sh/blog/how-to-setup-docker-compose-composer-project/</loc>
+        <lastmod>2020-01-02T05:43:04+00:00</lastmod>
+    </url>
 </urlset>

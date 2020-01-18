@@ -1,17 +1,13 @@
 version: '3.7'
 services:
   web:
-    image: pagespeed/nginx-pagespeed
+    image: nginx
+    # image: pagespeed/nginx-pagespeed
     volumes:
       - .:/usr/share/nginx/html:ro
     environment:
       - VIRTUAL_HOST=dev.local.blw.sh
       - CERT_NAME=local.blw.sh
-  # tunnel:
-  #   image: danielguerra/alpine-sshd
-  #   tty: true
-  #   stdin_open: true
-  #   command: "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -T -R 80:web:80 ssh.localhost.run"
 networks:
   default:
     external:

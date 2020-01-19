@@ -14,7 +14,7 @@
 @import "components/site-nav";
 @import "pages/posts";
 
-html { @apply font-body; }
+html { @apply font-body text-gray-800; }
 body { @apply bg-gray-100; }
 section {
     @apply py-20;

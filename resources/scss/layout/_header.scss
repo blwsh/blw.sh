@@ -1,6 +1,8 @@
 .header {
     @apply text-white;
-    background: linear-gradient(172.01deg, #021048 17.83%, #1E38A3 91.9%);
+    background: linear-gradient(172deg, #021048 18%, #1e38a3 92%);
+    background-size: 200% 200%;
+    animation: AnimationName 20s ease-out infinite;
 
     .logo {
         font-family: Sulphur Point, serif;
@@ -28,4 +30,20 @@
             }
         }
     }
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 9%}
+    50%{background-position:50% 40%}
+    100%{background-position:0% 9%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 9%}
+    50%{background-position:50% 40%}
+    100%{background-position:0% 9%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 9%}
+    50%{background-position:50% 40%}
+    100%{background-position:0% 9%}
 }

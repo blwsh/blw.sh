@@ -327,14 +327,13 @@
     <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/5e0e55ed7e39ea1242a2c882/default';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();</script>
     <script>
         console.log('Well you must have some familiarity with development if you can read this message so here is a nice quote for you which I try to live by.')
-        console.log('"Success is not final failure is not fatal. It is the courage to continue that counts." - Sir Winston Churchill')
+        console.log('"Success is not final, failure is not fatal. It is the courage to continue that counts." - Sir Winston Churchill');
     </script>
     <script>
         const container = document.getElementById('repos-container');
         fetch('https://api.github.com/users/UniBen/starred')
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 data.forEach(repo => {
                     container.innerHTML += `
                         <div class="flex flex-col justify-center w-full md:w-1/2 lg:w-3/12">

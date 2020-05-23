@@ -1,14 +1,13 @@
 version: '3.7'
+
 services:
   web:
     image: nginx
-    # image: pagespeed/nginx-pagespeed
+    labels:
+      - "traefik.http.routers.blw.rule=Host(`dev.local.blw.sh`)"
     volumes:
       - .:/usr/share/nginx/html:ro
-    environment:
-      - VIRTUAL_HOST=dev.local.blw.sh
-      - CERT_NAME=local.blw.sh
 networks:
   default:
     external:
-      name: proxy-network
+      name: traefik

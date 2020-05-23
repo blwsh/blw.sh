@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Developer/Software Engineer from Leeds with PHP, Vue, Node, GoLang and DevOps experience">
     <meta name="keywords" content="developer,leeds,devops,glcoud,aws,docker">
@@ -31,17 +31,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="/dist/css/app.css">
-    <!-- Hotjar Tracking Code for https://blw.sh -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:1629202,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
 </head>
 <body>
     <header id="header" class="header relative pb-24">
@@ -312,7 +301,7 @@
     <footer id="contact" class="py-10 px-16 md:px-32 lg:px-72 text-center">
         <div class="mb-4">
             <span class="mx-1 md:mx-5">email: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#101;&#110;&#64;&#98;&#108;&#119;&#46;&#115;&#104;" class="font-bold">&#98;&#101;&#110;&#64;&#98;&#108;&#119;&#46;&#115;&#104;</a></span>
-            <span class="mx-1 md:mx-5">twitter: <a href="https://twitter.com/_blwsh" class="font-bold" target="_blank">@_blwsh</a></span>
+            <span class="mx-1 md:mx-5">twitter: <a href="https://twitter.com/_blwsh" rel="noopener" class="font-bold" target="_blank">@_blwsh</a></span>
             <span class="mx-1 md:mx-5">phone: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#48;&#55;&#52;&#52;&#32;&#54;&#50;&#50;&#32;&#52;&#55;&#55;&#50;" class="font-bold">&#48;&#55;&#52;&#52;&#32;&#54;&#50;&#50;&#32;&#52;&#55;&#55;&#50;</a></span>
         </div>
 
@@ -338,7 +327,7 @@
                     container.innerHTML += `
                         <div class="flex flex-col justify-center w-full md:w-1/2 lg:w-3/12">
                             <div class="shadow rounded p-2 m-2">
-                                <a href="${repo.html_url}" target="_blank" class="block font-bold leading-tight mb-2 text-sm">${repo.full_name}</a>
+                                <a href="${repo.html_url}" target="_blank" rel="noopener" class="block font-bold leading-tight mb-2 text-sm">${repo.full_name}</a>
                                 <p style="height: 3.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="overflow-hidden text-xs text-gray-600">${repo.description}</p>
                             </div>
                         </div>

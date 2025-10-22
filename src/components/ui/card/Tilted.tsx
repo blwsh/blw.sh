@@ -1,4 +1,11 @@
-import {ComponentProps, MouseEvent, useEffect, useRef, useState} from 'react';
+import {
+  ComponentProps,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+  CSSProperties, ReactNode
+} from 'react';
 
 import type {SpringOptions} from 'motion/react';
 import {motion, useMotionValue, useSpring} from 'motion/react';
@@ -8,17 +15,17 @@ interface TiltedCardProps {
   imageSrc: ComponentProps<'img'>['src'];
   altText?: string;
   captionText?: string;
-  containerHeight?: React.CSSProperties['height'];
-  containerWidth?: React.CSSProperties['width'];
-  imageHeight?: React.CSSProperties['height'];
-  imageWidth?: React.CSSProperties['width'];
+  containerHeight?: CSSProperties['height'];
+  containerWidth?: CSSProperties['width'];
+  imageHeight?: CSSProperties['height'];
+  imageWidth?: CSSProperties['width'];
   scaleOnHover?: number;
   rotateAmplitude?: number;
   initialRotateX?: number;
   initialRotateY?: number;
   showMobileWarning?: boolean;
   showTooltip?: boolean;
-  overlayContent?: React.ReactNode;
+  overlayContent?: ReactNode;
   displayOverlayContent?: boolean;
 }
 

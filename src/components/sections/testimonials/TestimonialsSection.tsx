@@ -1,5 +1,5 @@
 import {Card, CardContent, CardHeader} from '@/components/ui/card/Card'
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/Avatar'
 
 export function TestimonialsSection() {
   return (

@@ -1,0 +1,18 @@
+@reference "../../../index.css";
+
+.experience-table {
+  .experience-table_company_pos_desc {
+    p:not(:last-of-type) {
+      @apply mb-2;
+    }
+
+    ul {
+      @apply list-disc list-outside pl-2;
+
+      li {
+        @apply ml-2;
+      }
+    }
+  }
+}
+

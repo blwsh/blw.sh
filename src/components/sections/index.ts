@@ -1,0 +1,5 @@
+export {ContactSection} from "./contact/ContactSection"
+export {ExperienceSection} from "./experience/ExperienceSection"
+export {HeroSection} from "./hero/HeroSection"
+export {LogosSection} from "./logos/LogosSection"
+export {TestimonialsSection} from "./testimonials/TestimonialsSection"

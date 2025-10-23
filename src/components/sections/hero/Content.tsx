@@ -36,11 +36,9 @@ export function Content() {
           </div>
 
           <div className="print:hidden flex gap-2">
-            <form action="mailto:ben@blw.sh">
-              <Button type="submit" size="lg" variant="white">
-                Contact me
-              </Button>
-            </form>
+            <Button asChild type="submit" size="lg" variant="white">
+              <a href="mailto:ben@blw.sh">Contact me</a>
+            </Button>
           </div>
         </div>
       </div>

@@ -84,11 +84,11 @@ function Footer({onPrint = () => {}}) {
         hesitate to contact me.
       </p>
       <div className="flex flex-wrap gap-2">
-        <form action="mailto:ben@blw.sh">
-          <Button type="submit" variant="outline" size="sm">
-            Contact me
+          <Button asChild type="submit" variant="outline" size="sm">
+            <a href="mailto:ben@blw.sh">
+              Contact me
+            </a>
           </Button>
-        </form>
         <Button variant="secondary" size="sm" onClick={() => {
           onPrint()
         }}>

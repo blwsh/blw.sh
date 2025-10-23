@@ -6,6 +6,7 @@ export type Testimonial = {
   position: string
   testimonial: JSX.Element
   avatar: string
+  companyLogoUrl?: string
 }
 
 export type ProgrammingLanguage =

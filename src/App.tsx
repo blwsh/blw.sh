@@ -18,12 +18,15 @@ function App() {
     <HeroSection/>
     <LogosSection className="print:hidden"/>
     <main className={cn(
-      'flex flex-col gap-y-10 md:gap-y-16 lg:gap-y-32 max-w-7xl mx-auto my-10 md:my-24'
+      'flex flex-col gap-y-10 md:gap-y-16 lg:gap-y-32 max-w-7xl mx-auto my-10 md:my-24',
+      'break-after-page'
     )}>
       <ExperienceSection/>
-      <TestimonialsSection/>
     </main>
-    <ContactSection/>
+    <div className="flex flex-col gap-y-16 print:h-[100vh]">
+      <TestimonialsSection/>
+      <ContactSection/>
+    </div>
   </>
 }
 

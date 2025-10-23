@@ -1,7 +1,7 @@
 import {Subtitle} from "@/components/ui/typography/Title";
 
 export function ContactSection() {
-  return <div className="max-w-5xl m-auto px-6 pb-10">
+  return <div className="max-w-5xl m-auto px-6 pb-10 print:pb-0">
     <Subtitle className="mb-1">Let's get in touch!</Subtitle>
     <div className="grid md:grid-cols-2 gap-5">
       <div className="max-w-lg">

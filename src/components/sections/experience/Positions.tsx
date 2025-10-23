@@ -26,7 +26,7 @@ export function Positions(
   return (
     <div
       className="experience-table_company_pos flex flex-col col-start-2 col-span-6">
-      <div className="py-3 pl-3 md:pl-5">{/* here */}
+      <div className="py-3 pl-3 md:pl-5">
         <Subtitle className="flex gap-1 items-center text-primary/80 text-lg">
           {position.title}
           {position.level && <span className="text-muted-foreground text-sm">

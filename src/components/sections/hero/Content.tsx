@@ -24,17 +24,20 @@ export function Content() {
             </Subtitle>
           </div>
 
-          <div className="flex flex-col gap-2 text-lg text-white font-semibold max-w-md">
+          <div
+            className="flex flex-col gap-2 text-lg text-white font-semibold max-w-md">
             <p>
               Hi! I'm Ben, a Senior Software Engineer with over 9 years of
-              experience building scalable cloud native software. I specialize in
-              Go, Node, and React.
+              experience building scalable cloud native software. I specialize
+              in Go, Node, and React.
             </p>
           </div>
 
           <div className="print:hidden flex gap-2">
             <form action="mailto:ben@blw.sh">
-              <Button type="submit" size="lg" variant="white">Contact me</Button>
+              <Button type="submit" size="lg" variant="white">
+                Contact me
+              </Button>
             </form>
           </div>
         </div>

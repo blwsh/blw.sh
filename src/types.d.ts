@@ -1,5 +1,13 @@
 import {JSX} from "react";
 
+export type Testimonial = {
+  initials: string
+  author: string
+  position: string
+  testimonial: JSX.Element
+  avatar: string
+}
+
 export type ProgrammingLanguage =
   "JavaScript"
   | "TypeScript"

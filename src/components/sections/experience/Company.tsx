@@ -7,7 +7,7 @@ export function Company({exp}: { exp: Experience }) {
     <div
       className="experience-table_company pl-3 md:pl-5 col-start-2 col-span-6">
       <Title className="!text-2xl">{exp.company}</Title>
-      <div>
+      <div className="flex flex-col gap-2">
         <span className="text-sm text-muted-foreground/90">
           {formatDates(
             exp.positions[exp.positions.length - 1].startDate, // assumes the last position is the oldest

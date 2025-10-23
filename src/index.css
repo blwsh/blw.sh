@@ -126,7 +126,7 @@
   }
 }
 
-.page-break {
-  clear: both;
-  page-break-after: always;
+@page {
+  size: A4;
+  margin: 1cm;
 }

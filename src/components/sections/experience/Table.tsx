@@ -73,5 +73,6 @@ export function CondDisplayCompany({cond = false, exp}: {
       'bg-gradient-to-l from-muted/50 to-muted/0 mask-t-from-[5px] border-r'
     )}/>
     <Company exp={exp}/>
+    {exp.description}
   </>
 }

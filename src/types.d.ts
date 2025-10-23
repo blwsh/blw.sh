@@ -120,5 +120,6 @@ export interface Position {
 
 export interface Experience {
   company: string
+  description: JSX.Element
   positions: Position[]
 }

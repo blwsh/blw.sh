@@ -10,8 +10,8 @@ export function Company({exp}: { exp: Experience }) {
       <div>
         <span className="text-sm text-muted-foreground/90">
           {formatDates(
-            exp.positions[exp.positions.length - 1].startDate, // assumes the first position is the most recent and endDate null means "present"
-            exp.positions[0].endDate || new Date() // assumes the last position is the oldest
+            exp.positions[exp.positions.length - 1].startDate, // assumes the last position is the oldest
+            exp.positions[0].endDate || new Date() // assumes the first position is the most recent and endDate null means "present"
           )}
           </span>
       </div>

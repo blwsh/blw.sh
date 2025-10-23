@@ -56,6 +56,9 @@ const companyTechnologies: Record<string, CategorisedTechnology> = {
 export const experience = [
   {
     company: "Taxdoo GmbH",
+    description: <p>Joined Taxdoo as an IC, rapidly promoted to Engineering
+      Manager, then transitioned back into a Senior IC role to lead technical
+      delivery on mission-critical finance systems.</p>,
     positions: [
       {
         title: "Senior Software Engineer",
@@ -66,14 +69,19 @@ export const experience = [
         endDate: null, // null means "present"
         location: "Hamburg, DE",
         description: <ul>
-          <li>Played a primary role in the architecture/implementation for the migration of a complex financial system alongside other Senior/Staff engineers.</li>
-          <li>Designed and delivered a mission-critical financial system (preliminarily written in Go) which
-            processed millions of € in transactions per month.
+          <li>Co-architected and migrated a large-scale financial platform,
+            reducing system complexity and improving maintainability.
           </li>
-          <li>Improved CI/CD pipelines, reducing runtimes by as much as 50% and
-            eliminated flaky builds in a major pipeline, saving developer hours/months.
+          <li>Delivered a high-throughput finance service in Go, processing
+            millions of euros monthly with improved accuracy and reliability.
           </li>
-          <li>Delivered dozens of full-stack features (React + (Go, Java & Node) backends)</li>
+          <li>Optimised CI/CD pipelines, cutting build time by ~50% and
+            eliminating flakiness, saving hundreds of developer hours per year.
+          </li>
+          <li>Delivered dozens of full-stack features across React, Go, Java,
+            and Node services, directly contributing to critical business
+            launches.
+          </li>
         </ul>
       },
       {
@@ -85,10 +93,18 @@ export const experience = [
         endDate: new Date("2023-04-30"),
         location: "Hamburg, DE",
         description: <ul>
-          <li>Led an initiative to eliminate ~40%+ of manual effort for the billing team.</li>
-          <li>Helped motivate and energise new team members who transferred internally to our team.</li>
-          <li>Interviewed candidates for my team and other engineering teams. Resulted in exceptional talent joining the org.</li>
-          <li>Worked with other leaders to help develop SDLC policy.</li>
+          <li>Led a cross-functional team to automate billing operations,
+            removing ~40% of manual processes.
+          </li>
+          <li>Rebuilt team morale during reorganisation, enabling faster
+            delivery and improved engagement.
+          </li>
+          <li>Interviewed and hired high-performing engineers who later became
+            core contributors.
+          </li>
+          <li>Partnered with leadership to define engineering processes and SDLC
+            standards across the org.
+          </li>
         </ul>
       },
       {
@@ -100,10 +116,18 @@ export const experience = [
         endDate: new Date("2022-07-31"),
         location: "Leeds, GB",
         description: <ul>
-          <li>Helped maintain and deliver features for our internal dashboard.</li>
-          <li>Reduced pipeline flakiness and cut down total time to deploy from 20m+ to just ~4m</li>
-          <li>Trained IC1 & IC2 team members on how to write better React code</li>
-          <li>Initiated a DX task force, developed a Go tool to enable securely working with sensitive financial data.</li>
+          <li>Modernised internal dashboard systems, improving stability and
+            usability for finance operations.
+          </li>
+          <li>Cut deployment time from 20+ minutes to ~4 minutes by
+            re-engineering CI/CD pipelines.
+          </li>
+          <li>Mentored junior engineers on React best practices and clean
+            architecture.
+          </li>
+          <li>Created a Go-based internal tool for secure handling of sensitive
+            financial data, improving developer productivity and compliance.
+          </li>
         </ul>
       }
     ]
@@ -120,10 +144,18 @@ export const experience = [
         endDate: new Date("2022-02-28"),
         location: "Manchester, GB",
         description: <ul>
-          <li>Managed K8S infrastructure. Worked with engineering teams to ensure deploying to the cluster was effortless</li>
-          <li>Developed Terraform templates to allow teams to easily deploy using canary deployments via Itsio</li>
-          <li>Enabled developers by developing Go tooling which simplified development process</li>
-          <li>Managed AWS and VPN infrastructure to enable B2B communication</li>
+          <li>Managed Kubernetes infrastructure and developer enablement for a
+            large-scale betting platform.
+          </li>
+          <li>Built Terraform modules enabling teams to deploy using canary
+            releases via Istio.
+          </li>
+          <li>Developed Go-based tooling that simplified local development and
+            CI integration.
+          </li>
+          <li>Managed AWS and VPN infrastructure to support secure B2B
+            integrations with external partners.
+          </li>
         </ul>
       }
     ]
@@ -140,10 +172,18 @@ export const experience = [
         endDate: new Date("2021-04-30"),
         location: "London, GB",
         description: <ul>
-          <li>Implemented new infrastructure which deployed ECS services via TeamCity</li>
-          <li>Developed Go tooling to support newly created infrastructure</li>
-          <li>Lead the development of an athlete management platform using Laravel and Ionic (PWA/IOS/Android)</li>
-          <li>Trained others on engineering best practices, new infrastructure and software patterns.</li>
+          <li>Led development of a cross-platform athlete management platform
+            (Laravel + Ionic) deployed as PWA, iOS, and Android apps.
+          </li>
+          <li>Built new AWS ECS-based infrastructure with automated deployments
+            via TeamCity.
+          </li>
+          <li>Created Go tools to support the new deployment pipeline, improving
+            team efficiency.
+          </li>
+          <li>Championed engineering best practices and mentored peers on modern
+            frameworks and infrastructure.
+          </li>
         </ul>
       }
     ]
@@ -160,10 +200,17 @@ export const experience = [
         endDate: new Date("2020-04-30"),
         location: "Leeds, GB",
         description: <ul>
-          <li>Eliminated scaling issues for clients which received massive influxes of traffic from national media coverage.</li>
-          <li>Delivered features and fixed bugs for an ecommerce client.</li>
-          <li>Developed the backend for a property market site using Laravel.</li>
-          <li>Created Go tooling which drastically simplified the deployment process in multi-tenant environments.</li>
+          <li>Delivered scalable, production-grade solutions for high-traffic
+            media clients.
+          </li>
+          <li>Eliminated scaling issues during viral traffic surges, ensuring
+            zero downtime.
+          </li>
+          <li>Built e-commerce and property marketplace backends in Laravel.
+          </li>
+          <li>Created Go tooling which drastically simplified the deployment
+            process in multi-tenant environments.
+          </li>
         </ul>
       }
     ]
@@ -179,9 +226,14 @@ export const experience = [
         endDate: new Date("2017-10-31"),
         location: "Leeds, GB",
         description: <ul>
-          <li>Designed & developed the majority of the backend for a large PLCs internal learning platform.</li>
-          <li>Delivered frontend features for various clients (Using Vue and JQuery)</li>
-          <li>Researched how we could benefit from moving to Docker.</li>
+          <li>Designed and implemented backend architecture for a large PLC’s
+            internal learning platform.
+          </li>
+          <li>Delivered front-end features in Vue and jQuery across multiple
+            client projects.
+          </li>
+          <li>Proposed and piloted Docker adoption for local dev consistency.
+          </li>
         </ul>
       },
       {

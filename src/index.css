@@ -4,7 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /*font-family: "Source Code Pro", monospace;*/
   font-optical-sizing: auto;
 
   font-synthesis: none;

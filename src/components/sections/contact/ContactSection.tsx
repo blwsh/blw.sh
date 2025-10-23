@@ -14,7 +14,7 @@ export function ContactSection() {
              className="text-primary underline">ben@blw.sh</a>
         </p>
       </div>
-      <div className="print:hidden border-l-2 pl-2 md:pl-0 md:border-l-0 md:text-right">
+      <div className="print:hidden border-l-2 px-3 md:pl-0 md:border-l-0 md:text-right">
         <ul className="inline-flex gap-4 text-foreground/90 text-sm">
           <li><a href="https://github.com/blwsh" target="_blank" rel="noopener noreferrer"><Github width={25}/></a></li>
           <li><a href="https://www.linkedin.com/in/ben-w-a39851bb//blwsh" target="_blank" rel="noopener noreferrer"><Linkedin width={25}/></a></li>

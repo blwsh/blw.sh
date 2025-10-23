@@ -13,7 +13,8 @@ export function Company({exp}: { exp: Experience }) {
             exp.positions[exp.positions.length - 1].startDate, // assumes the last position is the oldest
             exp.positions[0].endDate || new Date() // assumes the first position is the most recent and endDate null means "present"
           )}
-          </span>
+        </span>
+        {exp.description}
       </div>
     </div>
   )

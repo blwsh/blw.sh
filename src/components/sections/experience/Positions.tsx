@@ -2,7 +2,7 @@ import {useState} from "react";
 
 import {Subtitle} from "@/components/ui/typography/Title";
 
-import {Position, Technology} from "src/types";
+import {Position, Technology} from "@/types";
 import {
   flatMapSelectedTech, SelectedTechnology
 } from "./helper";

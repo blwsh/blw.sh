@@ -1,11 +1,13 @@
 import {ThemeToggle} from "./components/ThemeToggle";
 import {
   ContactSection,
-  ExperienceSection, HeroSection,
+  ExperienceSection,
+  HeroSection,
   LogosSection,
   TestimonialsSection
 } from "./components/sections";
 import {ScrollProgress} from "@/components/ui/ScrollProgress";
+import {cn} from "@/lib/utils";
 
 function App() {
   return <>
@@ -13,21 +15,15 @@ function App() {
       <ScrollProgress/>
       <ThemeToggle className="absolute top-1 right-1 w-32 cursor-pointer z-10"/>
     </div>
-
     <HeroSection/>
-
-    <div className="print:hidden">
-      <LogosSection/>
-    </div>
-    <main className="
-      flex flex-col gap-y-10 md:gap-y-16 lg:gap-y-32
-      max-w-7xl mx-auto my-10 md:my-24
-    ">
+    <LogosSection className="print:hidden"/>
+    <main className={cn(
+      'flex flex-col gap-y-10 md:gap-y-16 lg:gap-y-32 max-w-7xl mx-auto my-10 md:my-24'
+    )}>
       <ExperienceSection/>
-
-        <TestimonialsSection/>
+      <TestimonialsSection/>
     </main>
-        <ContactSection/>
+    <ContactSection/>
   </>
 }
 

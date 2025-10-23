@@ -56,14 +56,14 @@ function TestimonialCard({testimonial, size}: TestimonialCardProps) {
           <img
             src={testimonial.companyLogoUrl}
             alt={`${testimonial.author} company logo`}
-            className="mt-10"
+            className="mt-10 dark:invert"
           />
         </CardHeader>
       )}
 
       <CardContent className="h-full">
         <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
-          <p className="flex flex-col gap-4">{testimonial.testimonial}</p>
+          <div className="flex flex-col gap-4">{testimonial.testimonial}</div>
 
           <div className="grid grid-cols-[auto_1fr] items-center gap-3">
             <Avatar className="size-12">

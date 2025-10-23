@@ -1,3 +1,5 @@
+import {cn} from "@/lib/utils";
+
 import {Button} from "@/components/ui/Button";
 import {Swipe0} from "@/components/ui/svgs/swipe0";
 import {TiltedCard} from "@/components/ui/card/Tilted";
@@ -57,13 +59,13 @@ export function Content() {
           showTooltip={false}
           displayOverlayContent={true}
           overlayContent={
-            <div className="
-              absolute inline-block top-10 left-10 p-2 px-3
-              drop-shadow-2xl drop-shadow-black/80 rounded-lg
-              bg-gray-500/10 border border-white/20 text-sm font-semibold text-white/60
-              backdrop-blur-2xl outline outline-white/20
-              animate-in fade-in-50
-            ">
+            <div className={cn(
+              'absolute inline-block top-10 left-10 p-2 px-3',
+              'drop-shadow-2xl drop-shadow-black/80 rounded-lg',
+              'bg-black/80 border border-white/20 text-sm font-semibold text-white/60',
+              'backdrop-blur-2xl outline outline-white/20',
+              'animate-in fade-in-50'
+            )}>
               Check out <Swipe0 color="white" size="sm"/>
             </div>
           }

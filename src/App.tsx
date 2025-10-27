@@ -6,12 +6,16 @@ import {
 import {Layout} from "./layout/layout";
 
 function App() {
-  return <Layout hero={<>
-    <HeroSection/>
-    <LogosSection className="print:hidden"/>
-  </>}>
+  return <Layout hero={Hero()}>
     <ExperienceSection/>
   </Layout>
+}
+
+function Hero() {
+ return <>
+   <HeroSection/>
+   <LogosSection className="print:hidden"/>
+ </>
 }
 
 export default App
